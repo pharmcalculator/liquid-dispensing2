@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Liquid Dispensing Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .calculator {
+            text-align: center;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            margin-top: 0;
+        }
+        label, input {
+            margin: 10px;
+            display: block;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        input[type="number"] {
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            margin-top: 20px;
+            padding: 15px 30px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 24px; /* Increased font size for the calculate button */
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result-box {
+            margin-top: 20px;
+            background-color: #e6f0ff;
+            font-weight: bold;
+            font-size: 24px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .result-value {
+            font-size: 36px;
+            background-color: #bfe3ff;
+            border-radius: 5px;
+            padding: 5px;
+        }
+        .input-container {
+            display: flex;
+            justify-content: center;
+        }
+        .input-container input[type="number"] {
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h1>Liquid Dispensing Calculator</h1>
+        <form id="calculator-form">
+            <div class="input-container">
+                <label for="body-weight">Body Weight (lb):</label>
+                <input type="number" step="0.01" id="body-weight" required>
+            </div>
+
+            <div class="input-container">
+                <label for="dose">Dose (mg/lb):</label>
+                <input type="number" step="0.01" id="dose" required>
+            </div>
+
+            <div class="input-container">
+                <label for="concentration">Concentration (mg/mL):</label>
+                <input type="number" step="0.01" id="concentration" required>
+            </div>
+
+            <div class="input-container">
+                <label for="time-per-day">Time per Day:</label>
+                <input type="number" step="1" id="time-per-day" required>
+            </div>
+
+            <div class="input-container">
+                <label for="days">Days:</label>
+                <input type="number" step="1" id="days" required>
+            </div>
+
+            <button type="submit">Calculate</button>
+        </form>
+
+        <div id="result-container"></div>
+    </div>
+
+    <script>
+        document.getElementById("calculator-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            // Get input values
+            var bodyWeight = parseFloat(document.getElementById("body-weight").value);
+            var dose = parseFloat(document.getElementById("dose").value);
+            var concentration = parseFloat(document.getElementById("concentration").value);
+            var timePerDay = parseInt(document.getElementById("time-per-day").value);
+            var days = parseInt(document.getElementById("days").value);
+
+            // Calculate total liquid dispensing volume
+            var totalVolume = bodyWeight * (dose / concentration) * timePerDay * days;
+
+            // Display the result
+            var resultContainer = document.getElementById("result-container");
+            resultContainer.innerHTML = "<div class='result-box'><span class='result-value'>" + totalVolume.toFixed(2) + " mL</span></div>";
+        });
+    </script>
+</body>
+</html>
